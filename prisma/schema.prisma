@@ -13,9 +13,8 @@ datasource db {
 model Post {
     id        Int @id     @default(autoincrement())
     title     String
-    details   String
-    likes     Int
-    images    String
+    content   String
+    likes     Int         @default(0)
     createdAt DateTime    @default(now())
     updatedAt DateTime    @updatedAt
 }

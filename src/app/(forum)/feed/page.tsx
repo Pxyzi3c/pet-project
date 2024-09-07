@@ -1,14 +1,51 @@
-import React from 'react'
-import { Metadata } from 'next';
+"use client"
 
-export const metadata: Metadata = {
-    title: 'Feed | ',
-}
+import React, { useEffect, useState } from 'react'
+import { useMutation, useQuery } from '@apollo/client'
+import { GET_POSTS, CREATE_POST } from '@/graphql/queries.js';
+
+import { Button } from 'primereact/button';
 
 const Feed = () => {
+    const [posts, setPosts] = useState([])
+    const [createPost] = useMutation(CREATE_POST)
+    const {loading, error, data} = useQuery(GET_POSTS)
+
+    useEffect(() => {
+        if (data) {
+            setPosts(data.posts)
+            console.log(data.posts)
+        }
+    }, [data, posts])
+
+    if (loading) {
+        return <p>Loading...</p>
+    }
+
+    if (error) {
+        return <p>Error :(</p>
+    }
+
+    const handleCreatePost = async () => {
+        try {
+            const data = {
+                title: 'My new post',
+                content: 'This is my new post',
+            }
+
+            await createPost({
+                variables: {
+                    data
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
-        <section>
-            Feed
+        <section className='size-full'>
+            <Button label="Create Post" onClick={handleCreatePost}></Button>
         </section>
     )
 }

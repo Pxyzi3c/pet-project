@@ -2,7 +2,7 @@ import React from 'react'
 
 const ForumLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <main>
+        <main className='size-full'>
             {children}
         </main>
     )
