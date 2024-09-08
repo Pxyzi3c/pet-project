@@ -3,6 +3,7 @@ import { Prisma, PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 type Post = Prisma.PostGetPayload<object>;
+type User = Prisma.UserGetPayload<object>;
 
 const resolvers = {
     Query: {
@@ -11,6 +12,12 @@ const resolvers = {
         },
         post: async (_: undefined, { id }: { id: number }): Promise<Post | null> => {
             return prisma.post.findUnique({ where: { id } });
+        },
+        users: async (): Promise<User[]> => {
+            return prisma.user.findMany();
+        },
+        user: async (_: undefined, { id }: { id: number }): Promise<User | null> => {
+            return prisma.user.findUnique({ where: { id } });
         },
     },
     Mutation: {
