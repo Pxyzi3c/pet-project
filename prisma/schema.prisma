@@ -15,10 +15,11 @@ model User {
     clerkId String
     email   String   @unique
     name    String?
-    role    String   @default("USER")
+    roleId  Int      @default(1)  
     
     posts   Post[]
     likes   Like[]
+    role    Role     @relation(fields: [roleId], references: [id])
 }
 
 model Post {
@@ -54,4 +55,6 @@ model Category {
 model Role {
     id        Int @id   @default(autoincrement())
     name      String    @unique
+
+    users     User[]    
 }

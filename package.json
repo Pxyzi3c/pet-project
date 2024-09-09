@@ -3,12 +3,18 @@
     "version": "0.1.0",
     "private": true,
     "type": "module",
+    "prisma": {
+        "seed": "tsx prisma/seed.ts"
+    },
     "scripts": {
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "server": "nodemon ./src/graphql/index.js"
+        "server": "nodemon ./src/graphql/index.js",
+        "prisma:migrate": "npx prisma migrate dev",
+        "prisma:generate": "npx prisma generate",
+        "prisma:seed": "npx prisma db seed"
     },
     "dependencies": {
         "@apollo/client": "^3.11.8",
@@ -30,7 +36,7 @@
         "@babel/core": "^7.25.2",
         "@babel/preset-env": "^7.25.4",
         "@babel/preset-typescript": "^7.24.7",
-        "@types/node": "^20",
+        "@types/node": "^20.16.5",
         "@types/react": "^18",
         "@types/react-dom": "^18",
         "eslint": "^8",

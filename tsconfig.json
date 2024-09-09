@@ -25,6 +25,6 @@
   "ts-node": {
     "esm": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/graphql/index.js", "src/graphql/typeDefs.js", "src/graphql/resolvers.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/graphql/index.js", "src/graphql/typeDefs.js", "src/graphql/resolvers.js", "src/graphql/queries.js"],
   "exclude": ["node_modules"]
 }

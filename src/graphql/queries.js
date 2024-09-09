@@ -9,10 +9,10 @@ const GET_POSTS = gql`
                 email
                 id
                 name
-            role {
-                id
-                name
-            }
+                role {
+                    id
+                    name
+                }
             }
             likes {
                 id
