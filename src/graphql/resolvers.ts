@@ -30,6 +30,12 @@ const resolvers = {
         deletePost: async (_: undefined, { id }: { id: number }): Promise<Post> => {
             return prisma.post.delete({ where: { id } });
         },
+        createUser: async(_: undefined, { data }: { data: Prisma.UserCreateInput }): Promise<User> => {
+            return prisma.user.create({ data });
+        },
+        updateUser: async (_: undefined, { id, data }: { id: number, data: Prisma.UserUpdateInput }): Promise<User> => {
+            return prisma.user.update({ where: { id }, data })
+        }
     },
 };
 
