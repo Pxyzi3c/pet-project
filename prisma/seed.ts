@@ -9,6 +9,9 @@ async function main() {
             { name: 'admin' },
         ]
     })
+    // await prisma.user.upsert({
+
+    // })
 }
 
 main()
