@@ -1,21 +1,22 @@
-"use client"
+"use client";
 
-import { useSignUp, SignUp } from '@clerk/nextjs'
-import React, { useEffect } from 'react'
+import { SignUp } from '@clerk/nextjs';
 
 const SignUpPage = () => {
-    const { isLoaded, signUp} = useSignUp()
+    // const router = useRouter();
+    // const { isLoaded, sessionId } = useAuth();
 
-    useEffect(() => {
-        if (isLoaded && signUp.status === "complete") {
-            console.log(`SIGN UP COMPLETE: ${signUp}`)
-        }
-    }, [isLoaded, signUp])
+    // useEffect(() => {
+    //     if (isLoaded && sessionId) {
+    //         router.push('/forum');
+    //     }
+    // }, [isLoaded, sessionId, router]);
+
     return (
-        <main className='flex h-screen w-full items-center justify-center'>
+        <main className="flex h-screen w-full items-center justify-center">
             <SignUp />
         </main>
-    )
-}
+    );
+};
 
-export default SignUpPage
+export default SignUpPage;

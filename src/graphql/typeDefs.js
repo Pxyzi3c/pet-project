@@ -14,6 +14,7 @@ const typeDefs = gql`
         deletePost(id: Int!): Post!
         createUser(data: UserCreateInput!): User!
         updateUser(id: Int!, data: UserUpdateInput!): User!
+        createCategory(data: CategoryCreateInput!): Category!
     }
 
     type User {
@@ -21,7 +22,8 @@ const typeDefs = gql`
         clerkId: String!
         email: String!
         name: String
-        role: Role!
+        roleId: Int!
+
         posts: [Post!]
         likes: [Like!]
     }
@@ -37,7 +39,7 @@ const typeDefs = gql`
         content: String!
         author: User!
         likes: [Like!]
-        category: Category!
+        categoryId: Int!
     }
 
     type Like {
@@ -81,6 +83,10 @@ const typeDefs = gql`
         email: String
         name: String
         roleId: Int
+    }
+
+    input CategoryCreateInput {
+        name: String!
     }
 `;
 

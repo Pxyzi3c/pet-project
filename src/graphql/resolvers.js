@@ -32,6 +32,9 @@ const resolvers = {
         },
         updateUser: async (_, { id, data }) => {
             return prisma.user.update({ where: { id }, data })
+        },
+        createCategory: async (_, { data }) => {
+            return prisma.category.create({ data });
         }
     },
 };

@@ -2,11 +2,11 @@
 
 import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
-import { GET_POSTS, CREATE_POST } from '@/graphql/queries.js';
+import { GET_POSTS, CREATE_POST } from '@/src/graphql/queries.js';
 
 import { Button } from 'primereact/button';
 
-const Feed = () => {
+const ForumPage = () => {
     const [posts, setPosts] = useState([])
     const [newPost, setNewPost] = useState({})
     const [createPost] = useMutation(CREATE_POST)
@@ -52,4 +52,4 @@ const Feed = () => {
     )
 }
 
-export default Feed
+export default ForumPage

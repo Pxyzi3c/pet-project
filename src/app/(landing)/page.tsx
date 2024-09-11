@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react'
 import { useUser } from "@clerk/nextjs";
+import Navbar from '@/src/components/Navbar';
 
 const MainPage = () => {
     const { user } = useUser();
@@ -13,7 +14,9 @@ const MainPage = () => {
     }, [user])
 
     return (
-        <div className='size-full'>Main Page</div>
+        <main className='relative'>
+            <Navbar />
+        </main>
     )
 }
 

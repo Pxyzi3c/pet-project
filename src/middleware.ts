@@ -4,8 +4,7 @@ import {
 } from "@clerk/nextjs/server";
 
 const protectedRoutes = createRouteMatcher([
-    '/feed',
-    '/communities'
+    '/forum(.*)',
 ])
 
 export default clerkMiddleware((auth, req) => {

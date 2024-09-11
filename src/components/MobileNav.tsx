@@ -25,7 +25,7 @@ const MobileNav = () => {
                 width={32} 
                 height={32}>
             </Image>       
-            <p className='text-[26px] font-extrabold'>Hoom</p>
+            <p className='text-[26px] font-extrabold'>Feeddit</p>
         </Link>
     );
 
