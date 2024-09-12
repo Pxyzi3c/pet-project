@@ -18,14 +18,19 @@ export const metadata: Metadata = {
 const ForumLayout = ({ children }: { children: React.ReactNode }) => {
     
     return (
+        // TODO: Transform the element below the {children} into a component 
         <main className='relative'>
             <Navbar />
             <div className='flex'>
                 <Sidebar />
 
-                <section className='flex min-h-screen flex-col px-6 pb-6 pt-28 md:pb-14 sm:px-14 w-full'>
-                    <div>
+                <section className='flex min-h-screen flex-col px-4 pb-4 pt-24 md:pb-6 sm:px-6 w-full'>
+                    <div className='flex gap-6'>
                         {children}
+                        <div className='flex flex-col gap-4 p-4 border border-dark-1 max-sm:hidden md:w-[400px] rounded'>
+                            <p className='font-semibold'>Suggested Communities</p>
+
+                        </div>
                     </div>
                 </section>
             </div>

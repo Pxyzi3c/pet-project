@@ -7,7 +7,12 @@ import {
 export const sidebarLinks = [
     {
         label: 'Home',
-        route: '/',
-        icon: <House />,
+        route: '/forum',
+        icon: <House size={20}/>,
+    },
+    {
+        label: 'Communities',
+        route: '/forum/communities',
+        icon: <House size={20}/>,
     },
 ]

@@ -7,7 +7,7 @@ import { Button } from 'primereact/button'
 
 const Navbar = () => {
     return (
-        <nav className='flex-between fixed z-50 w-full px-6 py-4 lg:px-10 border-b border-dark-1'>
+        <nav className='flex-between fixed z-50 w-full py-4 px-6 border-b border-dark-1 bg-dark-2'>
             <Link href='/' className='flex items-center gap-2'>
                 <Image 
                     src='/logo.svg' 
