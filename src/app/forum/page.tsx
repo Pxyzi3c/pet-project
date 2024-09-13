@@ -3,8 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 import { GET_POSTS, CREATE_POST } from '@/src/graphql/queries.js';
-
-import { Button } from 'primereact/button';
+import ShareThoughtsPanel from '@/src/components/ShareThoughtsPanel';
 
 const ForumPage = () => {
     const [posts, setPosts] = useState([])
@@ -47,7 +46,7 @@ const ForumPage = () => {
 
     return (
         <section className='size-full'>
-            <Button label="Create Post" onClick={handleCreatePost}></Button>
+            <ShareThoughtsPanel />
         </section>
     )
 }

@@ -3,12 +3,24 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-    await prisma.role.createMany({
-        data: [
-            { name: 'user' },
-            { name: 'admin' },
-        ]
-    })
+    await Promise.all([
+        prisma.role.createMany({
+            data: [
+                { name: 'user' },
+                { name: 'admin' },
+            ],
+        }),
+        prisma.category.createMany({
+            data: [
+                { name: 'General' },
+                { name: 'Programming' },
+                { name: 'Design' },
+                { name: 'Culture' },
+                { name: 'Business' },
+                { name: 'Health' },
+            ],
+        }),
+    ]);
 }
 
 main()
