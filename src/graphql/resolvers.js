@@ -1,8 +1,8 @@
-import { roles, categories, posts, users } from './data.js';
+import { categories, posts } from './data.js';
 
-let nextPostId = posts.length + 1; // To generate unique IDs for new posts
-let nextUserId = users.length + 1; // To generate unique IDs for new users
 let nextCategoryId = categories.length + 1; // To generate unique IDs for new categories
+
+const BASE_URL = 'http://localhost:4000';
 
 const resolvers = {
     Query: {
@@ -12,24 +12,41 @@ const resolvers = {
         post: (_, { id }) => {
             return posts.find(post => post.id === id) || null;
         },
-        users: () => {
-            return users;
-        },
-        user: (_, { id }) => {
-            return users.find(user => user.id === id) || null;
-        },
-        categories: () => {
-            return categories;
+        categories: async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/api/categories`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                return data; // Ensure this is an array
+            } catch (error) {
+                console.error('Fetch error:', error);
+                throw new Error('Failed to fetch categories');
+            }
         },
         category: (_, { id }) => {
             return categories.find(category => category.id === id) || null;
         },
     },
     Mutation: {
-        createPost: (_, { data }) => {
-            const newPost = { id: nextPostId++, ...data };
-            posts.push(newPost);
-            return newPost;
+        createPost: async (_, { data }) => {
+            try {
+                const response = await fetch(`${BASE_URL}/api/posts`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                const newPost = await response.json();
+
+                return newPost;
+            } catch (error) {
+                console.error('Error Creating Post:', error);
+                throw new Error('Failed to create post');
+            }
         },
         updatePost: (_, { id, data }) => {
             const postIndex = posts.findIndex(post => post.id === id);
@@ -46,19 +63,6 @@ const resolvers = {
             const deletedPost = posts[postIndex];
             posts.splice(postIndex, 1); // Remove the post from the array
             return deletedPost;
-        },
-        createUser: (_, { data }) => {
-            const newUser = { id: nextUserId++, ...data };
-            users.push(newUser);
-            return newUser;
-        },
-        updateUser: (_, { id, data }) => {
-            const userIndex = users.findIndex(user => user.id === id);
-            if (userIndex === -1) return null; // User not found
-
-            const updatedUser = { ...users[userIndex], ...data };
-            users[userIndex] = updatedUser;
-            return updatedUser;
         },
         createCategory: (_, { data }) => {
             const newCategory = { id: nextCategoryId++, ...data };

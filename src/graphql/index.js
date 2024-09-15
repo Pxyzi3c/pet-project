@@ -1,39 +1,33 @@
-// import { ApolloServer } from 'apollo-server';
-// import typeDefs from './typeDefs.js';
-// import resolvers from './resolvers.js';
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
-// const { PORT = 3030 } = process.env;
-
-// const server = new ApolloServer({typeDefs, resolvers});
-
-// server
-//     .listen(PORT)
-//     .then(({ url }) => console.log(`🚀 Server ready at ${url}`))
-
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import typeDefs from './typeDefs.js';
 import resolvers from './resolvers.js';
-import { categories, posts, users } from './data.js'; 
+import { categories, posts } from './data.js'; 
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-const { PORT = 3030 } = process.env;
+const { PORT = 4000 } = process.env;
 
 const app = express();
 
-// Middleware to parse JSON bodies
 app.use(express.json());
-
-// RESTful routes for Users
-app.get('/api/users', (req, res) => {
-    res.json(users);
-});
 
 // RESTful routes for Posts
 app.get('/api/posts', (req, res) => {
     res.json(posts);
+});
+
+app.post('/api/posts', (req, res) => {
+    const { title, content, author, categoryId } = req.body;
+    const newPost = {
+        id: posts.length + 1,
+        title,
+        content,
+        author,
+        categoryId,
+    };
+    posts.push(newPost);
+    res.json(newPost);
 });
 
 // RESTful routes for Categories

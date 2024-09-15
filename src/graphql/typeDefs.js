@@ -4,8 +4,6 @@ const typeDefs = gql`
     type Query {
         posts: [Post!]!
         post(id: Int!): Post!
-        users: [User!]!
-        user(id: Int!): User!
         categories: [Category!]!
         category(id: Int!): Category!
     }
@@ -14,32 +12,14 @@ const typeDefs = gql`
         createPost(data: PostCreateInput!): Post!
         updatePost(id: Int!, data: PostUpdateInput!): Post!
         deletePost(id: Int!): Post!
-        createUser(data: UserCreateInput!): User!
-        updateUser(id: Int!, data: UserUpdateInput!): User!
         createCategory(data: CategoryCreateInput!): Category!
-    }
-
-    type User {
-        id: Int!
-        clerkId: String!
-        email: String!
-        name: String
-        roleId: Int!
-
-        posts: [Post!]
-        likes: [Like!]
-    }
-
-    type Role {
-        id: Int!
-        name: String!
     }
 
     type Post {
         id: Int!
         title: String!
         content: String!
-        author: User!
+        author: String!
         likes: [Like!]
         categoryId: Int!
     }
@@ -47,10 +27,9 @@ const typeDefs = gql`
     type Like {
         id: Int!
         postId: Int!
-        userId: Int!
+        user: String!
 
         post: Post!
-        user: User!
     }
 
     type Category {
@@ -62,29 +41,15 @@ const typeDefs = gql`
     input PostCreateInput {
         title: String!
         content: String!
-        authorId: Int!
+        author: String!
         categoryId: Int!   
     }
 
     input PostUpdateInput {
         title: String
         content: String
-        authorId: Int
+        author: String!
         categoryId: Int
-    }
-
-    input UserCreateInput {
-        clerkId: String!
-        email: String!
-        name: String
-        roleId: Int!
-    }
-
-    input UserUpdateInput {
-        clerkId: String
-        email: String
-        name: String
-        roleId: Int
     }
 
     input CategoryCreateInput {

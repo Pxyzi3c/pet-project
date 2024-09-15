@@ -10,10 +10,6 @@ const categories = [
     { id: 4, name: 'Question' },
 ];
 
-const posts = [
-];
+const posts = [];
 
-const users = [
-];
-
-export { roles, categories, posts, users };
+export { roles, categories, posts };

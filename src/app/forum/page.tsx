@@ -2,28 +2,30 @@
 
 import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
-import { GET_POSTS, CREATE_POST } from '@/src/graphql/queries.js';
+import { GET_POSTS, GET_CATEGORIES, CREATE_POST } from '@/src/graphql/queries.js';
 import ShareThoughtsPanel from '@/src/components/ShareThoughtsPanel';
 
 const ForumPage = () => {
     const [posts, setPosts] = useState([])
+    const [categories, setCategories] = useState([])
+
     const [newPost, setNewPost] = useState({})
     const [createPost] = useMutation(CREATE_POST)
-    const {loading, error, data} = useQuery(GET_POSTS)
+    const {loading: loadingCategories, error: errorCategories, data: dataCategories} = useQuery(GET_CATEGORIES)
 
     useEffect(() => {
-        if (data) {
-            setPosts(data.posts)
-            console.log(data.posts)
+        if (dataCategories) {
+            setCategories(dataCategories.categories)
+            console.log(dataCategories.categories)
         }
-    }, [data, posts])
+    }, [dataCategories])
 
-    if (loading) {
+    if (loadingCategories) {
         return <p>Loading...</p>
     }
 
-    if (error) {
-        console.log(error)
+    if (errorCategories) {
+        console.log(errorCategories)
         return <p>Error :(</p>
     }
 

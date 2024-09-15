@@ -6,17 +6,11 @@ const GET_POSTS = gql`
             id
             title
             content
-            author {
-                clerkId
-                email
-                id
-                name
-                roleId
-            }
+            author
             likes {
                 id
                 postId
-                userId
+                user
             }
             categoryId
         }
@@ -29,59 +23,16 @@ const CREATE_POST = gql`
             content
             title
             categoryId
-            author {
-                clerkId
-                email
-                id
-                name
-                roleId
-            }
+            author 
         }
     }
 `
 
-const GET_USERS = gql`
-    query Users {
-        users {
+const GET_CATEGORIES = gql`
+    query Categories {
+        categories {
             id
-            clerkId
-            email
             name
-            roleId
-        }
-    }
-`
-
-const GET_USER = gql`
-    query User($userId: Int!) {
-        user(id: $userId) {
-            id
-            clerkId
-            email
-            name
-            roleId
-            likes {
-                id
-                postId
-                userId
-            }
-            posts {
-                id
-                title
-                content
-                categoryId
-            }
-        }
-    }
-`
-
-const CREATE_USER = gql`
-    mutation CreateUser($data: UserCreateInput!) {
-        createUser(data: $data) {
-            clerkId
-            email
-            name
-            roleId
         }
     }
 `
@@ -99,7 +50,5 @@ export {
     GET_POSTS, 
     CREATE_POST,
     CREATE_CATEGORY,
-    CREATE_USER,
-    GET_USERS,
-    GET_USER
+    GET_CATEGORIES
 }

@@ -8,7 +8,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "server": "nodemon ./src/graphql/index.js"
+        "server": "tsx ./src/graphql/index.js"
     },
     "dependencies": {
         "@apollo/client": "^3.11.8",
