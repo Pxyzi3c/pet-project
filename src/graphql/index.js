@@ -43,6 +43,27 @@ app.delete('/api/posts/:id', (req, res) => {
     res.json(deletedPost); 
 });
 
+app.post('/api/posts/:postId/like', (req, res) => {
+    const { postId } = req.params;
+    const { user } = req.body;
+
+    const post = posts.find(post => post.id === parseInt(postId));
+    if (!post) {
+        return res.status(404).json({ error: 'Post not found' });
+    }
+
+    const newLike = {
+        id: nextLikeId++,
+        postId: parseInt(postId),
+        user,
+    };
+    likes.push(newLike);
+    post.likes.push(newLike);
+
+    res.json(newLike);
+});
+
+
 // CATEGORIES RESTful routes
 app.get('/api/categories', (req, res) => {
     res.json(categories);

@@ -48,14 +48,6 @@ const resolvers = {
                 throw new Error('Failed to create post');
             }
         },
-        updatePost: (_, { id, data }) => {
-            const postIndex = posts.findIndex(post => post.id === id);
-            if (postIndex === -1) return null; // Post not found
-
-            const updatedPost = { ...posts[postIndex], ...data };
-            posts[postIndex] = updatedPost;
-            return updatedPost;
-        },
         deletePost: async (_, { id }) => {
             try {
                 const response = await fetch(`${BASE_URL}/api/posts/${id}`, {
@@ -72,6 +64,21 @@ const resolvers = {
                 console.error('Error Deleting Post:', error);
                 throw new Error('Failed to delete post');
             }
+        },
+
+        likePost: (_, { postId, user }) => {
+            const post = posts.find(post => post.id === postId);
+            if (!post) throw new Error('Post not found');
+
+            const newLike = {
+                id: nextLikeId++,
+                postId,
+                user,
+            };
+            likes.push(newLike); 
+            post.likes.push(newLike);
+
+            return newLike; 
         },
         createCategory: (_, { data }) => {
             const newCategory = { id: nextCategoryId++, ...data };

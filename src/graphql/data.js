@@ -12,4 +12,6 @@ const categories = [
 
 const posts = [];
 
-export { roles, categories, posts };
+const likes = [];
+
+export { roles, categories, posts, likes };

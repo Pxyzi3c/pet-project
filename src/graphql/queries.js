@@ -39,6 +39,16 @@ const DELETE_POST = gql`
     }
 `
 
+const LIKE_POST = gql`
+    mutation LikePost($postId: Int!, $user: String!) {
+        likePost(postId: $postId, user: $user) {
+            id
+            postId
+            user
+        }
+    }
+`;
+
 const GET_CATEGORIES = gql`
     query Categories {
         categories {
@@ -62,5 +72,6 @@ export {
     CREATE_POST,
     CREATE_CATEGORY,
     GET_CATEGORIES,
-    DELETE_POST
+    DELETE_POST,
+    LIKE_POST
 }

@@ -13,6 +13,7 @@ const typeDefs = gql`
         updatePost(id: Int!, data: PostUpdateInput!): Post!
         deletePost(id: Int!): Post!
         createCategory(data: CategoryCreateInput!): Category!
+        likePost(postId: Int!, user: String!): Like!
     }
 
     type Post {
