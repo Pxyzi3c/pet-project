@@ -28,6 +28,17 @@ const CREATE_POST = gql`
     }
 `
 
+const DELETE_POST = gql`
+    mutation DeletePost($id: Int!) {
+        deletePost(id: $id) {
+            id
+            title
+            content
+            author
+        }
+    }
+`
+
 const GET_CATEGORIES = gql`
     query Categories {
         categories {
@@ -50,5 +61,6 @@ export {
     GET_POSTS, 
     CREATE_POST,
     CREATE_CATEGORY,
-    GET_CATEGORIES
+    GET_CATEGORIES,
+    DELETE_POST
 }

@@ -56,13 +56,22 @@ const resolvers = {
             posts[postIndex] = updatedPost;
             return updatedPost;
         },
-        deletePost: (_, { id }) => {
-            const postIndex = posts.findIndex(post => post.id === id);
-            if (postIndex === -1) return null; // Post not found
-
-            const deletedPost = posts[postIndex];
-            posts.splice(postIndex, 1); // Remove the post from the array
-            return deletedPost;
+        deletePost: async (_, { id }) => {
+            try {
+                const response = await fetch(`${BASE_URL}/api/posts/${id}`, {
+                    method: 'DELETE',
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Failed to delete post');
+                }
+    
+                const deletedPost = await response.json();
+                return deletedPost;
+            } catch (error) {
+                console.error('Error Deleting Post:', error);
+                throw new Error('Failed to delete post');
+            }
         },
         createCategory: (_, { data }) => {
             const newCategory = { id: nextCategoryId++, ...data };

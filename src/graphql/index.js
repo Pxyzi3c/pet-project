@@ -12,7 +12,7 @@ const app = express();
 
 app.use(express.json());
 
-// RESTful routes for Posts
+// POSTS RESTful routes
 app.get('/api/posts', (req, res) => {
     res.json(posts);
 });
@@ -30,15 +30,26 @@ app.post('/api/posts', (req, res) => {
     res.json(newPost);
 });
 
-// RESTful routes for Categories
+app.delete('/api/posts/:id', (req, res) => {
+    const { id } = req.params; 
+    const postIndex = posts.findIndex(post => post.id === parseInt(id));
+    
+    if (postIndex === -1) {
+        return res.status(404).json({ message: 'Post not found' });
+    }
+
+    const deletedPost = posts[postIndex];
+    posts.splice(postIndex, 1);
+    res.json(deletedPost); 
+});
+
+// CATEGORIES RESTful routes
 app.get('/api/categories', (req, res) => {
     res.json(categories);
 });
 
-// Set up Apollo Server
 const server = new ApolloServer({ typeDefs, resolvers });
 
-// Start the server
 const startServer = async () => {
     await server.start(); // Wait for the server to start
     server.applyMiddleware({ app }); // Apply middleware to the Express app
