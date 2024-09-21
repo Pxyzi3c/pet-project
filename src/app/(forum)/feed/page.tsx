@@ -8,6 +8,7 @@ import { Button } from 'primereact/button';
 
 const Feed = () => {
     const [posts, setPosts] = useState([])
+    const [newPost, setNewPost] = useState({})
     const [createPost] = useMutation(CREATE_POST)
     const {loading, error, data} = useQuery(GET_POSTS)
 
@@ -23,19 +24,20 @@ const Feed = () => {
     }
 
     if (error) {
+        console.log(error)
         return <p>Error :(</p>
     }
 
     const handleCreatePost = async () => {
         try {
-            const data = {
+            setNewPost({
                 title: 'My new post',
                 content: 'This is my new post',
-            }
+            })
 
             await createPost({
                 variables: {
-                    data
+                    newPost
                 }
             })
         } catch (error) {

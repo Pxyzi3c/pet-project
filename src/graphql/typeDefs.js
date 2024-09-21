@@ -15,6 +15,7 @@ const typeDefs = gql`
     input PostCreateInput {
         title: String!
         content: String!
+        likes: Int
     }
 
     input PostUpdateInput {
@@ -26,6 +27,7 @@ const typeDefs = gql`
         id: Int!
         title: String!
         content: String!
+        likes: Int
     }
 `;
 
