@@ -28,7 +28,7 @@ const typeDefs = gql`
 
     type Role {
         id: Int!
-        name: String! @unique
+        name: String!
     }
 
     type Post {
@@ -38,16 +38,12 @@ const typeDefs = gql`
         author: User!
         likes: [Like!]
         category: Category!
-
-        createdAt: DateTime!
-        updatedAt: DateTime!
     }
 
     type Like {
         id: Int!
         postId: Int!
         userId: Int!
-        createdAt: DateTime!
 
         post: Post!
         user: User!
