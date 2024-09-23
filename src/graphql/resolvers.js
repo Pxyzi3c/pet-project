@@ -1,41 +1,70 @@
-import { PrismaClient } from '@prisma/client';
+import { roles, categories, posts, users } from './data.js';
 
-const prisma = new PrismaClient();
+let nextPostId = posts.length + 1; // To generate unique IDs for new posts
+let nextUserId = users.length + 1; // To generate unique IDs for new users
+let nextCategoryId = categories.length + 1; // To generate unique IDs for new categories
 
 const resolvers = {
     Query: {
-        posts: async () => {
-            return prisma.post.findMany();
+        posts: () => {
+            return posts;
         },
-        post: async (_, { id }) => {
-            return prisma.post.findUnique({ where: { id } });
+        post: (_, { id }) => {
+            return posts.find(post => post.id === id) || null;
         },
-        users: async () => {
-            return prisma.user.findMany();
+        users: () => {
+            return users;
         },
-        user: async (_, { id }) => {
-            return prisma.user.findUnique({ where: { id } });
+        user: (_, { id }) => {
+            return users.find(user => user.id === id) || null;
+        },
+        categories: () => {
+            return categories;
+        },
+        category: (_, { id }) => {
+            return categories.find(category => category.id === id) || null;
         },
     },
     Mutation: {
-        createPost: async (_, { data }) => {
-            return prisma.post.create({ data });
+        createPost: (_, { data }) => {
+            const newPost = { id: nextPostId++, ...data };
+            posts.push(newPost);
+            return newPost;
         },
-        updatePost: async (_, { id, data }) => {
-            return prisma.post.update({ where: { id }, data });
+        updatePost: (_, { id, data }) => {
+            const postIndex = posts.findIndex(post => post.id === id);
+            if (postIndex === -1) return null; // Post not found
+
+            const updatedPost = { ...posts[postIndex], ...data };
+            posts[postIndex] = updatedPost;
+            return updatedPost;
         },
-        deletePost: async (_, { id }) => {
-            return prisma.post.delete({ where: { id } });
+        deletePost: (_, { id }) => {
+            const postIndex = posts.findIndex(post => post.id === id);
+            if (postIndex === -1) return null; // Post not found
+
+            const deletedPost = posts[postIndex];
+            posts.splice(postIndex, 1); // Remove the post from the array
+            return deletedPost;
         },
-        createUser: async(_, { data }) => {
-            return prisma.user.create({ data });
+        createUser: (_, { data }) => {
+            const newUser = { id: nextUserId++, ...data };
+            users.push(newUser);
+            return newUser;
         },
-        updateUser: async (_, { id, data }) => {
-            return prisma.user.update({ where: { id }, data })
+        updateUser: (_, { id, data }) => {
+            const userIndex = users.findIndex(user => user.id === id);
+            if (userIndex === -1) return null; // User not found
+
+            const updatedUser = { ...users[userIndex], ...data };
+            users[userIndex] = updatedUser;
+            return updatedUser;
         },
-        createCategory: async (_, { data }) => {
-            return prisma.category.create({ data });
-        }
+        createCategory: (_, { data }) => {
+            const newCategory = { id: nextCategoryId++, ...data };
+            categories.push(newCategory);
+            return newCategory;
+        },
     },
 };
 

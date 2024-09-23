@@ -6,6 +6,8 @@ const typeDefs = gql`
         post(id: Int!): Post!
         users: [User!]!
         user(id: Int!): User!
+        categories: [Category!]!
+        category(id: Int!): Category!
     }
 
     type Mutation {
